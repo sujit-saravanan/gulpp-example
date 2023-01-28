@@ -127,17 +127,22 @@ int main() {
 
     stbi_image_free(bytes);
 
+    // Main draw loop
     while (!glfwWindowShouldClose(window)){
+	// Clear screen
         gl::ClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         gl::Clear(gl::ClearBufferMask::eColorBufferBit);
 
+	// Set up and draw sprite
         gl::UseProgram(shaderProgram);
         gl::BindTextureUnit(0, tex);
         gl::Uniform1i(gl::GetUniformLocation(shaderProgram, "tex"), 0);
         gl::BindVertexArray(VAO);
         gl::DrawElements(gl::PrimitiveType::eTriangles, sizeof(indices)/ sizeof(indices[0]), gl::DrawElementsType::eUnsignedInt, nullptr);
 
+	// Swap the swapbuffers
         glfwSwapBuffers(window);
+	// Poll for user input
         glfwPollEvents();
     }
 
